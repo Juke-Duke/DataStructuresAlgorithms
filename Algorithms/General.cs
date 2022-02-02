@@ -202,7 +202,6 @@ namespace DataStructuresAlgorithms
                 binary += bit == 0 ? '0' : '1';
                 
                 decimalNum = bit == 1 ? decimalNum = 1 - (decimalNum * 2) : decimalNum *= 2;
-
             }
             
             return binary;
