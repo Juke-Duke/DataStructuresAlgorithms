@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System;
+﻿using System;
 using System.Numerics;
 
 namespace DataStructuresAlgorithms
@@ -187,6 +186,25 @@ namespace DataStructuresAlgorithms
                 num /= 2;
             }
 
+            return binary;
+        }
+
+        public static string FloatToBinary(float num, int precision)
+        {
+            int wholeNum = (int)num;
+            float decimalNum = num - 10f;
+            string binary = ToBinaryString(wholeNum) + '.';
+            Console.WriteLine(decimalNum);
+
+            for (int i = 0; i < precision; ++i)
+            {
+                int bit = (int)(decimalNum * 2);
+                binary += bit == 0 ? '0' : '1';
+                
+                decimalNum = bit == 1 ? decimalNum = 1 - (decimalNum * 2) : decimalNum *= 2;
+
+            }
+            
             return binary;
         }
 
