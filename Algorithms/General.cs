@@ -189,23 +189,23 @@ namespace DataStructuresAlgorithms
             return binary;
         }
 
-        public static string FloatToBinary(float num, int precision)
-        {
-            int wholeNum = (int)num;
-            float decimalNum = num - 10f;
-            string binary = ToBinaryString(wholeNum) + '.';
-            Console.WriteLine(decimalNum);
+        // public static string FloatToBinary(float num, int precision)
+        // {
+        //     int wholeNum = (int)num;
+        //     float decimalNum = num - 10f;
+        //     string binary = ToBinaryString(wholeNum) + '.';
+        //     Console.WriteLine(decimalNum);
 
-            for (int i = 0; i < precision; ++i)
-            {
-                int bit = (int)(decimalNum * 2);
-                binary += bit == 0 ? '0' : '1';
+        //     for (int i = 0; i < precision; ++i)
+        //     {
+        //         int bit = (int)(decimalNum * 2);
+        //         binary += bit == 0 ? '0' : '1';
                 
-                decimalNum = bit == 1 ? decimalNum = 1 - (decimalNum * 2) : decimalNum *= 2;
-            }
+        //         decimalNum = bit == 1 ? decimalNum = 1 - (decimalNum * 2) : decimalNum *= 2;
+        //     }
             
-            return binary;
-        }
+        //     return binary;
+        // }
 
         public static BigInteger ToDecimal(Stack<int> binary)
         {
