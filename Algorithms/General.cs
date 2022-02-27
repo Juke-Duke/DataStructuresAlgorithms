@@ -29,10 +29,10 @@ namespace DataStructuresAlgorithms
             }
         }
 
-        public static bool IsPrime(int num) // O(sqrt(N)) time complexity
+        public static bool IsisPrime(int num) // O(sqrt(N)) time complexity
         {
             // Assumes that n is a positive natural number
-            // 1 is not prime
+            // 1 is not isPrime
             if (num == 1)
                 return false;
 
@@ -44,12 +44,12 @@ namespace DataStructuresAlgorithms
                 // Check if i divides x without leaving a remainder
                 if (num % i == 0)
                     // This means that num has a factor in between 2 and sqrt(num)
-                    // So it is not a prime number
+                    // So it is not a isPrime number
                     return false;
                 i++;
             }
             // If we did not find any factor in the above loop,
-            // then n is a prime number
+            // then n is a isPrime number
             return true;
         }
 
@@ -241,22 +241,22 @@ namespace DataStructuresAlgorithms
             return binary.Peek().Data == 0 ? Decimal : Decimal * -1;
         }
     
-        public static int SieveOfEratosthenes(int n)
+        public static int SieveOfEratosthenes(int num)
         {
             int primes = 0;
-            bool[] prime = new bool[n + 1];
-            for (int i = 0; i <= n; i++)
-                prime[i] = true;
+            bool[] isPrime = new bool[num + 1];
+            for (int i = 0; i <= num; ++i)
+                isPrime[i] = true;
  
-            for (int p = 2; p * p <= n; p++)
-                if (prime[p] == true)
-                    for (int i = p * p; i <= n; i += p)
-                        prime[i] = false;
+            for (int p = 2; p * p <= num; ++p)
+                if (isPrime[p])
+                    for (int i = p * p; i <= num; i += p)
+                        isPrime[i] = false;
 
-            for (int i = 2; i <= n; i++)
+            for (int p = 2; p <= num; ++p)
             {
-                if (prime[i] == true)
-                    Console.Write(i + " ");
+                if (isPrime[p])
+                    Console.Write($"{p} ");
                 ++primes;
             }
 
