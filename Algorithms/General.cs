@@ -29,7 +29,7 @@ namespace DataStructuresAlgorithms
             }
         }
 
-        public static bool IsisPrime(int num) // O(sqrt(N)) time complexity
+        public static bool IsPrime(int num) // O(sqrt(N)) time complexity
         {
             // Assumes that n is a positive natural number
             // 1 is not isPrime
