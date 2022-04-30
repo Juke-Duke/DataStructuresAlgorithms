@@ -47,18 +47,6 @@ namespace DataStructuresAlgorithms
                 prior2 = newPrior2;
             }
         }
-
-        public static BigInteger FibonacciRecursion(BigInteger n)
-        {
-            Console.WriteLine($"F(n)");
-            if (n == 0)
-                return 0;
-            else if (n == 1)
-                return 1;
-            
-            return FibonacciRecursion(n - 1) + FibonacciRecursion(n - 2);
-        }
-
         public static bool IsPrime(int num) // O(sqrt(N)) time complexity
         {
             if (num == 1)
