@@ -120,13 +120,11 @@
                 isSorted = true;
 
                 for (int i = 0; i < max; ++i)
-                {
                     if (array[i] > array[i + 1])
                     {
                         Swap(array, i, i + 1);
                         isSorted = false;
                     }
-                }
 
                 --max;
             }
@@ -139,10 +137,8 @@
                 int min = i;
 
                 for (int j = i + 1; j < array.Length; ++j)
-                {
                     if (array[min] > array[j])
                         min = j;
-                }
 
                 Swap(array, i, min);
             }

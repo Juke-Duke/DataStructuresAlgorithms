@@ -8,7 +8,12 @@ namespace DataStructuresAlgorithms
     public class Node<T>
     {
         private T data;
+        public T Data { get => data; set => data = value; }
+
         private Node<T> next;
+        public Node<T> Next { get => next; set => next = value; }
+
+        public Node() => this.next = null;
 
         public Node(T data, Node<T> next = null)
         {
@@ -16,31 +21,15 @@ namespace DataStructuresAlgorithms
             this.next = next;
         }
 
-        public T Data
-        {
-            get { return data; }
-            set { data = value; }
-        }
-
-        public Node<T> Next
-        {
-            get { return next; }
-            set { next = value; }
-        }
-
         /// <summary>
         /// Output Node's data, aswell as the next pointers data
         /// </summary>
         public void Info()
         {
-            try
-            {
-                Console.WriteLine($"Information:\nData:\t\t[{data}]\nNextData:\t[{next.Data}]\n");
-            }
-            catch (NullReferenceException)
-            {
-                Console.WriteLine($"Information:\nData:\t\t[{data}]\nNextData:\t[NULL]\n");
-            }
+            if (next is not null)
+                Console.WriteLine($"Information:\nData:\t\t[{Data}]\nNextData:\t[{Next.Data}]\n");
+            else
+                Console.WriteLine($"Information:\nData:\t\t[{Data}]\nNextData:\t[NULL]\n");
         }
     }
 
@@ -50,13 +39,10 @@ namespace DataStructuresAlgorithms
     public class LinkedList<T>
     {
         private Node<T> head;
-        private int count;
+        public Node<T> Head { get => head; }
 
-        public LinkedList(Node<T> head)
-        {
-            this.head = head;
-            ++count;
-        }
+        private int count;
+        public int Count { get => count; }
 
         public LinkedList(T data)
         {
@@ -64,23 +50,47 @@ namespace DataStructuresAlgorithms
             ++count;
         }
 
-        public Node<T> Head
+        public LinkedList(Node<T> head)
         {
-            get { return head; }
+            this.head = head;
+            ++count;
         }
 
-        public int Count
+        public LinkedList(LinkedList<T> copy)
         {
-            get { return count; }
+            head = copy.head;
+            count = copy.count;
         }
 
         /// <summary>
         /// Checks to see if head Node pointer is NULL
         /// </summary>
-        /// <returns>True if pointer is NULL, otherwise False</returns>
-        public bool IsEmpty()
+        /// <returns>True if the head is NULL, otherwise False</returns>
+        public bool IsEmpty() => head == null;
+
+        /// <summary>
+        /// Finds the Node at a given index
+        /// </summary>
+        /// <param name="index">1 based index to return Node</param>
+        /// <returns>Node at given index</returns>
+        public Node<T> this[int index]
         {
-            return head.Next == null;
+            get
+            {
+                if (index < 1 || index > count)
+                    return null;
+
+                Node<T> curr = head;
+                int at = 1;
+
+                while (at < index)
+                {
+                    curr = curr!.Next;
+                    ++at;
+                }
+
+                return curr;
+            }
         }
 
         /// <summary>
@@ -92,47 +102,20 @@ namespace DataStructuresAlgorithms
         {
             Node<T> curr = head;
 
-            while (curr != null)
-            {
+            while (curr is not null)
                 if (curr.Data.Equals(data))
                     return curr;
                 else
                     curr = curr.Next;
-            }
 
             return null;
-        }
-
-        /// <summary>
-        /// Finds the Node at a given index
-        /// </summary>
-        /// <param name="index">1 based index to return Node</param>
-        /// <returns>Node at given index</returns>
-        public Node<T> At(int index)
-        {
-            if (index == 1)
-                return head;
-            if (index > count)
-                return null;
-
-            Node<T> curr = head;
-
-            int at = 1;
-
-            while (at < index)
-            {
-                curr = curr.Next;
-                ++at;
-            }
-
-            return curr;
         }
 
         /// <summary>
         /// Inserts a Node with given data to the front of the list, setting the head pointer to it
         /// </summary>
         /// <param name="data">Data value</param>
-        public void Front(T data)
+        public void SetHead(T data)
         {
             Node<T> newHead = new(data, head);
             head = newHead;
@@ -148,7 +131,7 @@ namespace DataStructuresAlgorithms
         {
             if (index == 1)
             {
-                Front(data);
+                SetHead(data);
                 return;
             }
 
@@ -184,7 +167,14 @@ namespace DataStructuresAlgorithms
             Node<T> newTail = new(data);
             Node<T> curr = head;
 
-            while (curr.Next != null)
+            if (curr is null)
+            {
+                head = newTail;
+                ++count;
+                return;
+            }
+
+            while (curr.Next is not null)
                 curr = curr.Next;
 
             curr.Next = newTail;
@@ -207,7 +197,7 @@ namespace DataStructuresAlgorithms
                 head = curr.Next;
             }
 
-            while (curr != null && !found)
+            while (curr is not null && !found)
             {
                 if (curr.Data.Equals(data))
                 {
@@ -228,16 +218,16 @@ namespace DataStructuresAlgorithms
         /// Removes the Node at the given index
         /// </summary>
         /// <param name="index">1 based index of the removed Node</param>
-        public void RemoveAt(int index)
+        public void RemoveAt(int index = 1)
         {
-            if (index == 1)
-                head = head.Next;
+            if (index < 1 || index > count)
+                throw new IndexOutOfRangeException();
 
-            Node<T> curr = head.Next;
+            Node<T> curr = head;
             Node<T> prev = null;
-            int at = 2;
+            int at = 1;
 
-            while (curr != null && at <= index)
+            while (curr is not null && at < index)
             {
                 prev = curr;
                 curr = curr.Next;
@@ -258,10 +248,8 @@ namespace DataStructuresAlgorithms
 
             Node<T> curr = head;
 
-            while (curr.Next.Next != null)
-            {
+            while (curr.Next.Next is not null)
                 curr = curr.Next;
-            }
 
             curr.Next = null;
             --count;
@@ -288,20 +276,29 @@ namespace DataStructuresAlgorithms
         }
 
         /// <summary>
+        /// Clears and empties the list
+        /// </summary>
+        public void Clear()
+        {
+            head = null;
+            count = 0;
+        }
+
+        /// <summary>
         /// Visual representation of the list
         /// </summary>
         public void Print()
         {
             Node<T> curr = head;
 
-            while (curr != null)
+            while (curr is not null)
             {
                 if (curr == head)
-                    if (curr.Next == null)
+                    if (curr.Next is null)
                         Console.WriteLine($"[Head: {curr.Data}]->[NULL]");
                     else
                         Console.Write($"[Head: {curr.Data}]->");
-                else if (curr.Next == null)
+                else if (curr.Next is null)
                     Console.WriteLine($"[Tail: {curr.Data}]->[NULL]");
                 else
                     Console.Write($"[{curr.Data}]->");

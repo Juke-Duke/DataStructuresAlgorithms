@@ -9,17 +9,36 @@ namespace DataStructuresAlgorithms
             BigInteger total = 1;
 
             for (BigInteger i = num; i > 0; --i)
-            {
                 total *= i;
-            }
 
             return total;
         }
 
+        public static BigInteger FactorialRecursion(BigInteger num)
+        {
+            if (num == 0)
+                return 1;
+
+            return num * FactorialRecursion(num - 1);
+        }
+
         public static void Fibonacci(BigInteger limit)
         {
-            Console.WriteLine($"F(0) = {0}\nF(1) = {1}");
+            if (limit < 0)
+                return;
+            else if (limit == 0)
+            {
+                System.Console.WriteLine($"F(0) = 0");
+                return;
+            }
+            else if (limit == 1)
+            {
+                System.Console.WriteLine($"F(1) = 1");
+                return;
+            }
+            Console.WriteLine($"F(0) = 0\nF(1) = 1");
             BigInteger prior1 = 0, prior2 = 1;
+
             for (BigInteger i = 2; i <= limit; ++i)
             {
                 BigInteger newPrior2 = prior1 + prior2;
@@ -29,10 +48,19 @@ namespace DataStructuresAlgorithms
             }
         }
 
-        public static bool IsisPrime(int num) // O(sqrt(N)) time complexity
+        public static BigInteger FibonacciRecursion(BigInteger n)
         {
-            // Assumes that n is a positive natural number
-            // 1 is not isPrime
+            Console.WriteLine($"F(n)");
+            if (n == 0)
+                return 0;
+            else if (n == 1)
+                return 1;
+            
+            return FibonacciRecursion(n - 1) + FibonacciRecursion(n - 2);
+        }
+
+        public static bool IsPrime(int num) // O(sqrt(N)) time complexity
+        {
             if (num == 1)
                 return false;
 
@@ -130,14 +158,14 @@ namespace DataStructuresAlgorithms
             return tree;
         }
 
-        public static int Ackerman(int m, int n)
+        public static int Ackermann(int m, int n)
         {
             if (m == 0)
                 return n + 1;
             else if ((m > 0) && (n == 0))
-                return Ackerman(m - 1, 1);
+                return Ackermann(m - 1, 1);
 
-            return Ackerman(m - 1, Ackerman(m, n - 1));
+            return Ackermann(m - 1, Ackermann(m, n - 1));
         }
 
         public static Stack<int> ToBinary(int num)
